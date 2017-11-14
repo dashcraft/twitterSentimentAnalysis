@@ -11,11 +11,11 @@ const winston = require('winston');
 const expressWinston = require('express-winston');
 const sentiment = require('sentiment');
 
-try {
-    const config = require('./config.json');
-} catch (err) {
-    console.log(err);
-}
+// try {
+//     const config = require('./config.json');
+// } catch (err) {
+//     console.log(err);
+// }
 const angularTweets = [];
 const reactTweets = [];
 
