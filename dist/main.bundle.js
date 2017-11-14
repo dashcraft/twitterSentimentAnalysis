@@ -273,7 +273,7 @@ var AngularChartComponent = (function () {
             ind++;
         });
         console.log('base chart', angularChartLabels);
-        this.avg = this.average(ang_map);
+        this.avg = this.average(ang_map) || 0;
         this.baseChart.chart.config.data.labels = angularChartLabels;
         this.angularChartData = _angularChartData;
     };
@@ -562,7 +562,7 @@ var ReactChartComponent = (function () {
             reactChartLabels.push(index.toString());
             index++;
         });
-        this.avg = this.average(react_map);
+        this.avg = this.average(react_map) || 0;
         console.log('second chart', reactChartLabels);
         this.baseChart.chart.config.data.labels = reactChartLabels;
         this.reactChartData = _reactChartData;

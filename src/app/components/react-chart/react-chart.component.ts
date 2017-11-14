@@ -67,7 +67,7 @@ export class ReactChartComponent implements OnInit {
       index++;
     });
 
-    this.avg = this.average(react_map);
+    this.avg = this.average(react_map) || 0;
 
     console.log('second chart', reactChartLabels);
     this.baseChart.chart.config.data.labels = reactChartLabels;
