@@ -15,14 +15,15 @@
                 <th>Score</th>
 
             </tr>
-
-            <tr *ngFor="let data of angular_data" class="table_body">
-                <td>{{data.id}}</td>
-                <td>{{data.user}}</td>
-                <td>{{data.text}}</td>
-                <td>{{data.created_at}}</td>
-                <td>{{data.sentiment}}</td>
-            </tr>
+            <tbody class="table_body">
+                <tr *ngFor="let data of angular_data">
+                    <td>{{data.id}}</td>
+                    <td>{{data.user}}</td>
+                    <td>{{data.text}}</td>
+                    <td>{{data.created_at}}</td>
+                    <td>{{data.sentiment}}</td>
+                </tr>
         </table>
+        </tbody>
     </div>
 </div>
