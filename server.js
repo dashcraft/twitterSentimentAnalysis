@@ -11,7 +11,7 @@ const winston = require('winston');
 const expressWinston = require('express-winston');
 const sentiment = require('sentiment');
 
-// const config = require('./config.json');
+const config = require('./config.json');
 
 const angularTweets = [];
 const reactTweets = [];
@@ -87,7 +87,6 @@ function reactAdd(tweet) {
 }
 
 function angularAdd(tweet) {
-    console.log('angular tweet add is being called');
     var length = angularTweets.length;
     if (length >= 99) {
         angularTweets.shift();
@@ -119,7 +118,6 @@ app.use(expressWinston.errorLogger({
 
 
 io.on('connection', (socket) => {
-    console.log("This is a server side message, there was a connection!");
     socket.emit('msg', { msg: 'Welcome bro!' });
     setInterval(() => {
         socket.emit('presence', { data: Object.keys(io.sockets.sockets) });
@@ -129,13 +127,11 @@ io.on('connection', (socket) => {
         socket.emit('msg', { msg: "you sent : " + msg });
     })
     socket.on('get_angular', function() {
-        console.log('get_angular was called');
         io.sockets.emit('angular_total', { data: angularTweets });
     });
 
 
     socket.on('get_react', function() {
-        console.log('get react was called');
         io.sockets.emit('react_total', { data: reactTweets });
     });
     io.emit('new', { 'message': 'This is a message!' });
