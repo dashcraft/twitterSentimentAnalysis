@@ -11,8 +11,11 @@ const winston = require('winston');
 const expressWinston = require('express-winston');
 const sentiment = require('sentiment');
 
-const config = require('./config.json');
-
+try {
+    const config = require('./config.json');
+} catch (err) {
+    console.log(err);
+}
 const angularTweets = [];
 const reactTweets = [];
 
