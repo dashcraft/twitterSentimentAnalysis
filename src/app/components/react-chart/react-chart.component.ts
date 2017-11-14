@@ -39,7 +39,7 @@ export class ReactChartComponent implements OnInit {
     this.ts
       .getInitReact()
       .subscribe(react => {
-        console.log('init react was ', react);
+        console.log('init react data', react);
         this.react_data = react;
         this.triggerLineData();
       });
@@ -69,7 +69,6 @@ export class ReactChartComponent implements OnInit {
 
     this.avg = this.average(react_map) || 0;
 
-    console.log('second chart', reactChartLabels);
     this.baseChart.chart.config.data.labels = reactChartLabels;
     this.reactChartData = _reactChartData;
   }

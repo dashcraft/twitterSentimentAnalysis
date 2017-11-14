@@ -11,7 +11,7 @@ export class SocketService {
   constructor(private socket: Socket) { }
 
   getInitAng() {
-    console.log('angular_total came back');
+    console.log('get init ang');
     return this.socket
       .fromEvent<any>('angular_total')
       .map(data => data.data);
@@ -19,7 +19,6 @@ export class SocketService {
   }
 
   getInitReact() {
-    console.log('react_total came back');
     return this.socket
       .fromEvent<any>('react_total')
       .map(data => data.data);
@@ -38,7 +37,6 @@ export class SocketService {
   }
 
   getInit() {
-    console.log('get init was called');
     this.socket
       .emit('get_angular', {});
     this.socket

@@ -32,9 +32,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var routes = [
     {
-        path: 'main',
-        component: __WEBPACK_IMPORTED_MODULE_2__components_main_component_main_component_component__["a" /* MainComponent */],
-    }
+        path: '',
+        component: __WEBPACK_IMPORTED_MODULE_2__components_main_component_main_component_component__["a" /* MainComponent */]
+    },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {
@@ -60,7 +60,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".table_body {\n    height: 400px;\n    overflow-y: scroll;\n}", ""]);
 
 // exports
 
@@ -191,7 +191,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/angular-chart/angular-chart.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"display: block;\">\n    <canvas #baseChart baseChart width=\"700px\" height=\"400\" [datasets]=\"angularChartData\" [labels]=\"angularChartLabels\" [options]=\"lineChartOptions\" [colors]=\"lineChartColors\" [legend]=\"lineChartLegend\" [chartType]=\"lineChartType\" (chartHover)=\"chartHovered($event)\"\n        (chartClick)=\"chartClicked($event)\"></canvas>\n</div>\n<div class=\"row\">\n    <div class=\"col-12\" style=\"margin-top: 40px\">\n        <h4>Angular Sentiment Score from Twitter Stream: {{avg | number: '1.0-1'}}</h4>\n\n        <table class=\"table table-responsive table-condensed\">\n            <tr>\n                <th>ID</th>\n                <th>Twitter Handle</th>\n                <th>Tweet</th>\n                <th>Date</th>\n                <th>Score</th>\n\n            </tr>\n\n            <tr *ngFor=\"let data of angular_data\">\n                <td>{{data.id}}</td>\n                <td>{{data.user}}</td>\n                <td>{{data.text}}</td>\n                <td>{{data.created_at}}</td>\n                <td>{{data.sentiment}}</td>\n            </tr>\n        </table>\n    </div>\n</div>"
+module.exports = "<div style=\"display: block;\">\n    <canvas #baseChart baseChart width=\"700px\" height=\"400\" [datasets]=\"angularChartData\" [labels]=\"angularChartLabels\" [options]=\"lineChartOptions\" [colors]=\"lineChartColors\" [legend]=\"lineChartLegend\" [chartType]=\"lineChartType\" (chartHover)=\"chartHovered($event)\"\n        (chartClick)=\"chartClicked($event)\"></canvas>\n</div>\n<div class=\"row\">\n    <div class=\"col-12\" style=\"margin-top: 40px\">\n        <h4>Angular Sentiment Score from Twitter Stream: {{avg | number: '1.0-1'}}</h4>\n\n        <table class=\"table table-responsive table-condensed\">\n            <tr>\n                <th>ID</th>\n                <th>Twitter Handle</th>\n                <th>Tweet</th>\n                <th>Date</th>\n                <th>Score</th>\n\n            </tr>\n\n            <tr *ngFor=\"let data of angular_data\" class=\"table_body\">\n                <td>{{data.id}}</td>\n                <td>{{data.user}}</td>\n                <td>{{data.text}}</td>\n                <td>{{data.created_at}}</td>\n                <td>{{data.sentiment}}</td>\n            </tr>\n        </table>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -256,13 +256,11 @@ var AngularChartComponent = (function () {
             .getAngular()
             .subscribe(function (angular_tweet) {
             _this.angular_data.push(angular_tweet);
-            console.log(angular_tweet);
             _this.triggerLineData();
         });
     };
     AngularChartComponent.prototype.triggerLineData = function () {
         var ang_map = this.angular_data.map(function (x) { return x.sentiment; });
-        console.log('ang_map', ang_map);
         var _angularChartData = [
             { data: ang_map, label: 'Angular' }
         ];
@@ -272,7 +270,6 @@ var AngularChartComponent = (function () {
             angularChartLabels.push(ind.toString());
             ind++;
         });
-        console.log('base chart', angularChartLabels);
         this.avg = this.average(ang_map) || 0;
         this.baseChart.chart.config.data.labels = angularChartLabels;
         this.angularChartData = _angularChartData;
@@ -342,8 +339,6 @@ module.exports = "<div class=\"container-fluid\">\n    <div class=\"row\">\n\n  
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_socket_service__ = __webpack_require__("../../../../../src/app/service/socket.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_charts_ng2_charts__ = __webpack_require__("../../../../ng2-charts/ng2-charts.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ng2_charts_ng2_charts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_ng2_charts_ng2_charts__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -356,82 +351,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 var MainComponent = (function () {
     function MainComponent(ts) {
         this.ts = ts;
-        this.angular_data = [];
-        this.react_data = [];
-        this.angularChartData = [
-            { data: [], label: 'Angular' }
-        ];
-        this.reactChartData = [
-            { data: [], label: 'React' }
-        ];
-        this.reactChartLabels = ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'];
-        this.angularChartLabels = ['0', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'];
-        this.lineChartOptions = {
-            responsive: true
-        };
-        this.lineChartColors = [
-            {
-                backgroundColor: 'rgba(148,159,177,0.2)',
-                borderColor: 'rgba(148,159,177,1)',
-                pointBackgroundColor: 'rgba(148,159,177,1)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-            },
-            {
-                backgroundColor: 'rgba(77,83,96,0.2)',
-                borderColor: 'rgba(77,83,96,1)',
-                pointBackgroundColor: 'rgba(77,83,96,1)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(77,83,96,1)'
-            },
-            {
-                backgroundColor: 'rgba(148,159,177,0.2)',
-                borderColor: 'rgba(148,159,177,1)',
-                pointBackgroundColor: 'rgba(148,159,177,1)',
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-            }
-        ];
-        this.lineChartLegend = true;
-        this.lineChartType = 'line';
     }
     MainComponent.prototype.ngOnInit = function () {
         this.ts.getInit();
-    };
-    MainComponent.prototype.triggerLineData = function () {
-        var ang_map = this.angular_data.map(function (x) { return x.sentiment; });
-        var react_map = this.react_data.map(function (x) { return x.sentiment; });
-        console.log('ang_map', ang_map);
-        var _angularChartData = [
-            { data: ang_map, label: 'Angular' }
-        ];
-        var _reactChartData = [
-            { data: react_map, label: 'React' }
-        ];
-        var reactChartLabels = [];
-        var index = 0;
-        react_map.map(function () {
-            reactChartLabels.push(index.toString());
-            index++;
-        });
-        var angularChartLabels = [];
-        var ind = 0;
-        ang_map.map(function () {
-            angularChartLabels.push(ind.toString());
-            ind++;
-        });
-        console.log('base chart', angularChartLabels);
-        console.log('second chart', reactChartLabels);
-        this.baseChart.chart.config.data.labels = angularChartLabels;
-        this.angularChartData = _angularChartData;
-        this.reactChartData = _reactChartData;
     };
     // events
     MainComponent.prototype.chartClicked = function (e) {
@@ -442,14 +367,6 @@ var MainComponent = (function () {
     };
     return MainComponent;
 }());
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_2_ng2_charts_ng2_charts__["BaseChartDirective"]),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_charts_ng2_charts__["BaseChartDirective"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ng2_charts_ng2_charts__["BaseChartDirective"]) === "function" && _a || Object)
-], MainComponent.prototype, "baseChart", void 0);
-__decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_2_ng2_charts_ng2_charts__["BaseChartDirective"]),
-    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2_ng2_charts_ng2_charts__["BaseChartDirective"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2_ng2_charts_ng2_charts__["BaseChartDirective"]) === "function" && _b || Object)
-], MainComponent.prototype, "secondChart", void 0);
 MainComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-main-component',
@@ -457,10 +374,10 @@ MainComponent = __decorate([
         styles: [__webpack_require__("../../../../../src/app/components/main-component/main-component.component.css")],
         providers: [__WEBPACK_IMPORTED_MODULE_1__service_socket_service__["a" /* SocketService */]]
     }),
-    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__service_socket_service__["a" /* SocketService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__service_socket_service__["a" /* SocketService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__service_socket_service__["a" /* SocketService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__service_socket_service__["a" /* SocketService */]) === "function" && _a || Object])
 ], MainComponent);
 
-var _a, _b, _c;
+var _a;
 //# sourceMappingURL=main-component.component.js.map
 
 /***/ }),
@@ -486,7 +403,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/react-chart/react-chart.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"display: block;\">\n    <canvas #baseChart baseChart width=\"700px\" height=\"400\" [datasets]=\"reactChartData\" [labels]=\"reactChartLabels\" [options]=\"lineChartOptions\" [colors]=\"lineChartColors\" [legend]=\"lineChartLegend\" [chartType]=\"lineChartType\" (chartHover)=\"chartHovered($event)\"\n        (chartClick)=\"chartClicked($event)\"></canvas>\n</div>\n<div class=\"row\">\n    <div class=\"col-12\" style=\"margin-top: 40px\">\n        <h4>React Sentiment Score from Twitter Stream: {{avg | number: '1.0-1'}}</h4>\n\n        <table class=\"table table-responsive table-condensed\">\n            <tr>\n                <th>ID</th>\n                <th>Twitter Handle</th>\n                <th>Tweet</th>\n                <th>Date</th>\n                <th>Score</th>\n\n            </tr>\n\n            <tr *ngFor=\"let data of react_data\">\n                <td>{{data.id}}</td>\n                <td>{{data.user}}</td>\n                <td>{{data.text}}</td>\n                <td>{{data.created_at}}</td>\n                <td>{{data.sentiment}}</td>\n            </tr>\n        </table>\n    </div>\n</div>"
+module.exports = "<div style=\"display: block;\">\n    <canvas #baseChart baseChart width=\"700px\" height=\"400\" [datasets]=\"reactChartData\" [labels]=\"reactChartLabels\" [options]=\"lineChartOptions\" [colors]=\"lineChartColors\" [legend]=\"lineChartLegend\" [chartType]=\"lineChartType\" (chartHover)=\"chartHovered($event)\"\n        (chartClick)=\"chartClicked($event)\"></canvas>\n</div>\n<div class=\"row\">\n    <div class=\"col-12\" style=\"margin-top: 40px\">\n        <h4>React Sentiment Score from Twitter Stream: {{avg | number: '1.0-1'}}</h4>\n\n        <table class=\"table table-responsive table-condensed\">\n            <tr>\n                <th>ID</th>\n                <th>Twitter Handle</th>\n                <th>Tweet</th>\n                <th>Date</th>\n                <th>Score</th>\n\n            </tr>\n\n            <tr *ngFor=\"let data of react_data\" class=\"table_body\">\n                <td>{{data.id}}</td>\n                <td>{{data.user}}</td>\n                <td>{{data.text}}</td>\n                <td>{{data.created_at}}</td>\n                <td>{{data.sentiment}}</td>\n            </tr>\n        </table>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -540,7 +457,7 @@ var ReactChartComponent = (function () {
         this.ts
             .getInitReact()
             .subscribe(function (react) {
-            console.log('init react was ', react);
+            console.log('init react data', react);
             _this.react_data = react;
             _this.triggerLineData();
         });
@@ -563,7 +480,6 @@ var ReactChartComponent = (function () {
             index++;
         });
         this.avg = this.average(react_map) || 0;
-        console.log('second chart', reactChartLabels);
         this.baseChart.chart.config.data.labels = reactChartLabels;
         this.reactChartData = _reactChartData;
     };
@@ -631,13 +547,12 @@ var SocketService = (function () {
         this.socket = socket;
     }
     SocketService.prototype.getInitAng = function () {
-        console.log('angular_total came back');
+        console.log('get init ang');
         return this.socket
             .fromEvent('angular_total')
             .map(function (data) { return data.data; });
     };
     SocketService.prototype.getInitReact = function () {
-        console.log('react_total came back');
         return this.socket
             .fromEvent('react_total')
             .map(function (data) { return data.data; });
@@ -653,7 +568,6 @@ var SocketService = (function () {
             .map(function (data) { return data; });
     };
     SocketService.prototype.getInit = function () {
-        console.log('get init was called');
         this.socket
             .emit('get_angular', {});
         this.socket

@@ -56,8 +56,6 @@ export class AngularChartComponent implements OnInit {
       .getAngular()
       .subscribe(angular_tweet => {
         this.angular_data.push(angular_tweet);
-        console.log(angular_tweet);
-
         this.triggerLineData();
       });
   }
@@ -65,7 +63,6 @@ export class AngularChartComponent implements OnInit {
 
   triggerLineData() {
     const ang_map = this.angular_data.map(x => x.sentiment);
-    console.log('ang_map', ang_map);
     const _angularChartData = [
       { data: ang_map, label: 'Angular' }
     ];
@@ -77,7 +74,6 @@ export class AngularChartComponent implements OnInit {
       angularChartLabels.push(ind.toString());
       ind++;
     });
-    console.log('base chart', angularChartLabels);
     this.avg = this.average(ang_map) || 0;
     this.baseChart.chart.config.data.labels = angularChartLabels;
     this.angularChartData = _angularChartData;

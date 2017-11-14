@@ -11,7 +11,7 @@ const winston = require('winston');
 const expressWinston = require('express-winston');
 const sentiment = require('sentiment');
 
-// const config = require('./config.json');
+const config = require('./config.json');
 
 const angularTweets = [];
 const reactTweets = [];
@@ -87,11 +87,14 @@ function reactAdd(tweet) {
 }
 
 function angularAdd(tweet) {
+    console.log('angular tweet add is being called');
     var length = angularTweets.length;
     if (length >= 99) {
         angularTweets.shift();
         angularTweets.push(tweet);
+        console.log('angular tweets shift');
     } else {
+        console.log('angular tweets push');
         angularTweets.push(tweet);
     }
 }

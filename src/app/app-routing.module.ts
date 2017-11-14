@@ -5,10 +5,9 @@ import { MainComponent } from './components/main-component/main-component.compon
 
 const routes: Routes = [
   {
-    path: 'main',
-    component: MainComponent,
-  }
-
+    path: '',
+    component: MainComponent
+  },
 ];
 
 
