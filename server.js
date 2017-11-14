@@ -37,10 +37,10 @@ function startTweetStream() {
     angular.on('tweet', function(tweet) {
         const id = tweet.id;
         const created_at = tweet.created_at;
-        const text = tweet.text;
+        const text = tweet.text.toLowerCase();
         const user = tweet.user.screen_name;
         const sentiment = getSentiment(text);
-        if (text.indexOf('RT') == -1 && user.indexOf('bot') == -1 && sentiment != 0) {
+        if (text.indexOf('rt') == -1 && user.indexOf('bot') == -1 && sentiment != 0) {
             if (text.indexOf('react') == -1) {
                 let newTweetSent = {
                     id,
@@ -52,7 +52,7 @@ function startTweetStream() {
                 angularAdd(newTweetSent);
                 io.sockets.emit('angular_sent', newTweetSent);
             }
-            if (text.indexOf('react') != -1 && text.indexOf('AngularJS') == -1 && sentiment != 0) {
+            if (text.indexOf('react') != -1 && text.indexOf('angularjs') == -1 && sentiment != 0) {
                 let newTweetSent = {
                     id,
                     created_at,

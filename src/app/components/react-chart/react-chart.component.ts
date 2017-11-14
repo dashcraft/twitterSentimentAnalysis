@@ -63,8 +63,9 @@ export class ReactChartComponent implements OnInit {
     const reactChartLabels = [];
     let index = 0;
     react_map.map(() => {
-      reactChartLabels.push(index.toString());
       index++;
+      reactChartLabels.push(index.toString());
+
     });
 
     this.avg = this.average(react_map) || 0;

@@ -71,8 +71,8 @@ export class AngularChartComponent implements OnInit {
     const angularChartLabels = [];
     let ind = 0;
     ang_map.map(() => {
-      angularChartLabels.push(ind.toString());
       ind++;
+      angularChartLabels.push(ind.toString());
     });
     this.avg = this.average(ang_map) || 0;
     this.baseChart.chart.config.data.labels = angularChartLabels;

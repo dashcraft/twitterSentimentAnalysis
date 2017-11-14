@@ -267,8 +267,8 @@ var AngularChartComponent = (function () {
         var angularChartLabels = [];
         var ind = 0;
         ang_map.map(function () {
-            angularChartLabels.push(ind.toString());
             ind++;
+            angularChartLabels.push(ind.toString());
         });
         this.avg = this.average(ang_map) || 0;
         this.baseChart.chart.config.data.labels = angularChartLabels;
@@ -476,8 +476,8 @@ var ReactChartComponent = (function () {
         var reactChartLabels = [];
         var index = 0;
         react_map.map(function () {
-            reactChartLabels.push(index.toString());
             index++;
+            reactChartLabels.push(index.toString());
         });
         this.avg = this.average(react_map) || 0;
         this.baseChart.chart.config.data.labels = reactChartLabels;
