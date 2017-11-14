@@ -120,9 +120,8 @@ app.use(expressWinston.errorLogger({
 
 io.on('connection', (socket) => {
     console.log("This is a server side message, there was a connection!");
-    let sockets = Object.keys(io.sockets.sockets);;
     socket.emit('msg', { msg: 'Welcome bro!' });
-    socket.emit('presence', { data: sockets });
+    socket.emit('presence', { data: Object.keys(io.sockets.sockets) });
     socket.on('msg', function(msg) {
         socket.emit('msg', { msg: "you sent : " + msg });
     })
