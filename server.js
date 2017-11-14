@@ -40,8 +40,8 @@ function startTweetStream() {
         const text = tweet.text.toLowerCase();
         const user = tweet.user.screen_name;
         const sentiment = getSentiment(text);
-        if (text.indexOf('rt') == -1 && user.indexOf('bot') == -1 && sentiment != 0) {
-            if (text.indexOf('react') == -1) {
+        if (text.indexOf('rt') == -1 && user.indexOf('bot') == -1) {
+            if (text.indexOf('react') == -1 || text.indexOf('reactjs') == -1) {
                 let newTweetSent = {
                     id,
                     created_at,
@@ -52,7 +52,7 @@ function startTweetStream() {
                 angularAdd(newTweetSent);
                 io.sockets.emit('angular_sent', newTweetSent);
             }
-            if (text.indexOf('react') != -1 && text.indexOf('angularjs') == -1 && sentiment != 0) {
+            if ((text.indexOf('react') != -1 || text.indexOf('react') != -1) && text.indexOf('angular') == -1 && text.indexOf('angularjs') == -1) {
                 let newTweetSent = {
                     id,
                     created_at,
@@ -120,11 +120,12 @@ app.use(expressWinston.errorLogger({
 
 io.on('connection', (socket) => {
     console.log("This is a server side message, there was a connection!");
+    let sockets = Object.keys(io.sockets.sockets);;
     socket.emit('msg', { msg: 'Welcome bro!' });
+    socket.emit('presence', { data: sockets });
     socket.on('msg', function(msg) {
         socket.emit('msg', { msg: "you sent : " + msg });
     })
-
     socket.on('get_angular', function() {
         console.log('get_angular was called');
         io.sockets.emit('angular_total', { data: angularTweets });

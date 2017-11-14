@@ -316,7 +316,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".padding-top {\n    padding-top: 20px;\n}", ""]);
 
 // exports
 
@@ -329,7 +329,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/main-component/main-component.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container-fluid\">\n    <div class=\"row\">\n\n        <div class=\"col-6\">\n            <app-angular-chart></app-angular-chart>\n        </div>\n\n        <div class=\"col-6\">\n            <app-react-chart></app-react-chart>\n        </div>\n    </div>\n</div>"
+module.exports = "<div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"col-12 text-center padding-top\">\n            <h2>Current Socket Count: {{socketcount}}</h2>\n        </div>\n    </div>\n    <div class=\"row\">\n\n        <div class=\"col-6\">\n            <app-angular-chart></app-angular-chart>\n        </div>\n\n        <div class=\"col-6\">\n            <app-react-chart></app-react-chart>\n        </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -356,7 +356,12 @@ var MainComponent = (function () {
         this.ts = ts;
     }
     MainComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.ts.getInit();
+        this.ts.getPresence().subscribe(function (x) {
+            _this.socketcount = x.data.length;
+            console.log(x);
+        });
     };
     // events
     MainComponent.prototype.chartClicked = function (e) {
@@ -560,6 +565,12 @@ var SocketService = (function () {
     SocketService.prototype.getAngular = function () {
         return this.socket
             .fromEvent('angular_sent')
+            .map(function (data) { return data; });
+    };
+    SocketService.prototype.getPresence = function () {
+        console.log('presence requested');
+        return this.socket
+            .fromEvent('presence')
             .map(function (data) { return data; });
     };
     SocketService.prototype.getReact = function () {

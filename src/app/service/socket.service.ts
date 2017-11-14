@@ -30,6 +30,13 @@ export class SocketService {
       .map(data => data);
   }
 
+  getPresence() {
+    console.log('presence requested');
+    return this.socket
+      .fromEvent<any>('presence')
+      .map(data => data);
+  }
+
   getReact() {
     return this.socket
       .fromEvent<any>('react_sent')

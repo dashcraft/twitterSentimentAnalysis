@@ -11,9 +11,14 @@ import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 export class MainComponent implements OnInit {
 
   constructor(private ts: SocketService) { }
+  socketcount: any;
 
   ngOnInit() {
     this.ts.getInit();
+    this.ts.getPresence().subscribe(x => {
+      this.socketcount = x.data.length;
+      console.log(x);
+    });
   }
 
 
