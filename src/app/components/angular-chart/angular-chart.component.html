@@ -1,0 +1,28 @@
+<div style="display: block;">
+    <canvas #baseChart baseChart width="700px" height="400" [datasets]="angularChartData" [labels]="angularChartLabels" [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+</div>
+<div class="row">
+    <div class="col-12" style="margin-top: 40px">
+        <h4>Angular Sentiment Score from Twitter Stream: {{avg | number: '1.0-1'}}</h4>
+
+        <table class="table table-responsive table-condensed">
+            <tr>
+                <th>ID</th>
+                <th>Twitter Handle</th>
+                <th>Tweet</th>
+                <th>Date</th>
+                <th>Score</th>
+
+            </tr>
+
+            <tr *ngFor="let data of angular_data">
+                <td>{{data.id}}</td>
+                <td>{{data.user}}</td>
+                <td>{{data.text}}</td>
+                <td>{{data.created_at}}</td>
+                <td>{{data.sentiment}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
