@@ -89,7 +89,7 @@ function reactAdd(tweet) {
 
 }
 
-function angularAdd() {
+function angularAdd(tweet) {
     var length = angularTweets.length;
     if (length >= 99) {
         angularTweets.shift();
