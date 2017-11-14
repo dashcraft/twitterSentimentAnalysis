@@ -10,7 +10,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AngularChartComponent } from './components/angular-chart/angular-chart.component';
 import { ReactChartComponent } from './components/react-chart/react-chart.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:4200', options: {} };
+const config: SocketIoConfig = { url: '/', options: {} };
 
 @NgModule({
   declarations: [

@@ -141,7 +141,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var config = { url: 'http://localhost:4200', options: {} };
+var config = { url: '/', options: {} };
 var AppModule = (function () {
     function AppModule() {
     }

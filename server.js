@@ -168,4 +168,4 @@ app.set('port', port);
 /**
  * Listen on provided port, on all network interfaces.
  */
-http.listen(port, () => console.log(`API running on localhost:${port}`));
+http.listen(port, () => console.log(`API running on port:${port}`));
